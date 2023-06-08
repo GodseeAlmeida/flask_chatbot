@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: none;
+    z-index: 999;
+}
+
+.chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+.close-icon {
+    float: right;
+    cursor: pointer;
+}
+
+.chat-body {
+    padding: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px
+}
+
+</style>
+<body>
+    <div class="chat-icon" onclick="openChat()">
+        <i class="fas fa-comment-alt"></i>
+    </div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span class="close-icon" onclick="closeChat()">&times;</span>
+            <h1>Helpdesk Chatbot</h1>
+        </div>
+        <div class="chat-body">
+            <form method="POST" action="/">
+                <label for="condition">Health Condition:</label>
+                <select name="condition" id="condition">
+                    <option value="Fever">I have fever</option>
+                    <option value="Cold">I have cold</option>
+                    <option value="Both">I have both</option>
+                </select>
+                <br>
+                <label for="severity">Severity:</label>
+                <select name="severity" id="severity">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                <br>
+                <input type="submit" value="Chat">
+            </form>
+            <br>
+            {% if reply %}
+            <textarea rows="4" cols="150">{{ reply }}</textarea>
+            <br>
+            <button onclick="speak('{{ reply }}')">Speak</button>
+
+        {% endif %}
+        </div>
+    </div>
+    <script>
+        function openChat() {
+            document.getElementById("chatWindow").style.display = "block";
+        }
+        
+        function closeChat() {
+            document.getElementById("chatWindow").style.display = "none";
+        }
+           
+    </script>
+</body>
+</html>
